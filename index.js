@@ -1,5 +1,5 @@
-const { DoodClient } = require('./doodclient')
-const { MakeRequestUrl } = require('./requests')
+const { DoodClient } = require('./methods/doodclient')
+const { MakeRequestUrl } = require('./methods/requests')
 
 const StartSystem = () => {
 	console.log('Stating system')
@@ -16,13 +16,17 @@ const CreateUser = (id,call) => {
 
 }
 
-const GenerateToken = () => {
+const GenerateToken = (user, pass, resHandler) => {
 	var method = 'GET'
 	var url = 'https://www.google.com'
 
-	var token = MakeRequestUrl(method, url)
-	
-	return token
+	var call = res => {
+		console.log(`statusCode: ${res}`)
+
+		resHandler(res)
+	}
+
+	MakeRequestUrl(method, url, call)
 }
 
 module.exports = {

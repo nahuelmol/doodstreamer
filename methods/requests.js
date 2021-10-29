@@ -1,6 +1,6 @@
 const https = require('https')
 
-const MakeRequestUrl = (method, url) => {
+const MakeRequestUrl = (method, url, call) => {
 
 	var host = url
 	var response = ''
@@ -24,8 +24,10 @@ const MakeRequestUrl = (method, url) => {
 	}
 
 	const req = https.request(options, res => {
-	  console.log(`statusCode: ${res.statusCode}`)
+	  
 	  response = res.statusCode
+
+	  call(response)
 	})
 
 	req.on('error', error => {
@@ -35,7 +37,6 @@ const MakeRequestUrl = (method, url) => {
 
 	req.end()
 
-	return response
 }
 
 
