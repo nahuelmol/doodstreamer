@@ -24,10 +24,19 @@ const MakeRequestUrl = (method, url, call) => {
 	}
 
 	const req = https.request(options, res => {
-	  
-	  response = res.statusCode
+	  var status = res.statusCode
+	  var content = ''
 
-	  call(response)
+	  console.log('status: ', status)
+
+	  if(res.content !== undefined){
+	  	content = res.content
+
+	  	call(status, content)
+	  }else{
+	  	call(status)
+	  }
+
 	})
 
 	req.on('error', error => {

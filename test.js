@@ -1,27 +1,27 @@
-const  { Request } = require('./index')
-const { GenerateToken, CreateUser } = require('./index')
+const { CreateUser } = require('./index')
 
-var TOKEN = ''
+var TOKEN = process.env.API_TOKEN || 'example token'
 var user = ''
 var password = ''
 
-var onResponse = res => {
-	console.log(res)
+var call = res => {
 
-	res.upVideo()
-	res.addSub()
 }
+var onResponse = user => {
+	console.log(user)
 
-var resHandler = res => {
-	console.log('res: ', res + '..')
+	user.upVideo()
+	user.addSub()
 
-	TOKEN = res
-
-	if(TOKEN != ''){
-		CreateUser(TOKEN,onResponse)
+	var call = res => {
+		console.log('last res')
 	}
+
+	user.accountInfo(call)
+
 }
-GenerateToken(user,password,resHandler)
+
+CreateUser(TOKEN,onResponse)
 
 
 

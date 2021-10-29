@@ -8,7 +8,6 @@ const StartSystem = () => {
 const CreateUser = (id,call) => {
 
 	const callback = obj => {
-
 		call(obj)
 	}
 
