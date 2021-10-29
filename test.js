@@ -1,9 +1,14 @@
 const  { Request } = require('./index')
 const { GenerateToken, CreateUser } = require('./index')
 
-var Token = GenerateToken() 
-var newUser = CreateUser(token)
+var TOKEN = GenerateToken()
 
-newUser.getVideoInfo(video_id)
-newUser.uploadVideo()
-newUser.addSubtitle()
+var onResponse = res => {
+	console.log(res)
+
+	res.upVideo()
+	res.addSub()
+}
+
+CreateUser('newId',onResponse)
+

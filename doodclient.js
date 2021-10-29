@@ -1,16 +1,19 @@
-const DoodClient = (id) => {
-	this.name = null
-	this.id = id
+const DoodClient = (id,callback) => {
+	this.user = {id:id}
+	this.callback = callback
 
-	function getVideoInfo(video_id){
-		console.log('This should show video info')
-	}
-
-	function uploadVideo(){
+	this.upVideo = () => {
 		console.log('Upload video')
 	}
 
-	function addSubtitle(){
+	this.addSub = () => {
 		console.log('Add subtitle')
 	}
+
+	this.callback(this)
+
+}
+
+module.exports = {
+	DoodClient
 }
