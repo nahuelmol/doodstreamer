@@ -3,10 +3,32 @@ const { MakeRequestUrl } = require('./requests')
 
 
 const DoodClient = (id,callback) => {
-	this.user = {id:id}
+	this.id = id
 	this.callback = callback
 
-	this.upVideo = () => {
+	this.upOnlineVideo = (path,call) => {
+		var videopath = path
+		var url = 'https://doodapi.com/api/upload/server?key=' + this.id +'&url='+ videopath
+
+		const onResponse = status => {
+			call(status)
+		}
+
+		MakeRequestUrl('GET',url,onResponse)
+
+		console.log('Upload video')
+	}
+
+	this.upLocalVideo = (path,call) => {
+		var videopath = path
+		var url = 'https://doodapi.com/api/upload/server?key=' + this.id +'&file='+ videopath
+
+		const onResponse = status => {
+			call(status)
+		}
+
+		MakeRequestUrl('GET',url,onResponse)
+
 		console.log('Upload video')
 	}
 
@@ -14,12 +36,21 @@ const DoodClient = (id,callback) => {
 		console.log('Add subtitle')
 	}
 
+	this.reports = call => {
+		var url = 'https://doodapi.com/api/account/stats?key=' + this.id
+
+		const onResponse = status => {
+			call(status)
+		}
+
+		MakeRequestUrl('GET', url, onReponse)
+	}
+
 	this.accountInfo = call => {
 
 		var url = 'https://doodapi.com/api/account/info?key=' + this.id
 
-		const onResponse = (status) => {
-			console.log('res: ', status)
+		const onResponse = status => {
 			call(status)
 		}
 

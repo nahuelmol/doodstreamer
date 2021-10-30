@@ -1,6 +1,6 @@
 const { CreateUser } = require('./index')
 
-var TOKEN = process.env.API_TOKEN || 'example token'
+var TOKEN = '57709yuesng1zbfz7usi6'
 var user = ''
 var password = ''
 
@@ -10,14 +10,14 @@ var call = res => {
 var onResponse = user => {
 	console.log(user)
 
-	user.upVideo()
 	user.addSub()
 
-	var call = res => {
-		console.log('last res')
-	}
+	var call = res => console.log('last res')
 
+	user.upOnlineVideo(url, call)
+	user.upLocalVideo(path, call)
 	user.accountInfo(call)
+	user.reports(call)
 
 }
 

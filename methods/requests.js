@@ -25,19 +25,22 @@ const MakeRequestUrl = (method, url, call) => {
 
 	const req = https.request(options, res => {
 	  var status = res.statusCode
-	  var content = ''
 
-	  console.log('status: ', status)
+	  res.on('data', data => {
+	  	var result = data.toString()
+	  	var result_obj = JSON.parse(result)
+	  	
+		console.log('MSG: ', result_obj.msg)
 
-	  if(res.content !== undefined){
-	  	content = res.content
+		console.log('request to: ', options.hostname + options.path)
+	  	console.log('status: ', status)
 
-	  	call(status, content)
-	  }else{
-	  	call(status)
-	  }
+		call(status)
+		})
 
 	})
+
+	
 
 	req.on('error', error => {
   		console.error(error)
